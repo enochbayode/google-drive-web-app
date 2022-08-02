@@ -1,0 +1,12 @@
+{
+  "name": "google-drive-app",
+  "version": "1.0.0",
+  "description": "A web app like google drive",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Enoch Bayode",
+  "license": "MIT"
+}
