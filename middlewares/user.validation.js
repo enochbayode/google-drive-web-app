@@ -10,7 +10,7 @@ const validation = joi.object({
 const userValidation = async (req, res, next) => {
     try {
       const validated = validation.validate(req.body);
-      console.log('user data input is', req.body.email)
+      
       if (validated.error) {
         res.status(400);
         return res.json({

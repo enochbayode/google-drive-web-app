@@ -14,6 +14,7 @@ const signup = async (req, res) => {
         const existingUser = await User.findOne({
             email: req.body.email.toLowerCase(),
         });
+        
         if (existingUser) {
             res.status(403);
             return res.json({
@@ -28,6 +29,7 @@ const signup = async (req, res) => {
             email: req.body.email.toLowerCase(),
             password: hashedPassword,
         }).save();
+        
         newUser.set("password", undefined);
         if (newUser) {
             res.status(201);
@@ -37,13 +39,14 @@ const signup = async (req, res) => {
                 data: newUser,
             });
         }
-
+        console.log(error)
         return res.json({
             status: false,
             message: "unable to register user",
             error: utils.getMessage("REGISTER_FAILURE"),
         });
     } catch (error) {
+        console.log(error)
         res.status(500).json({
             status: false,
             message: "Unable to register user.",
