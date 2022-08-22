@@ -28,6 +28,7 @@ const signup = async (req, res) => {
         const newUser = await User({
             email: req.body.email.toLowerCase(),
             password: hashedPassword,
+            totalStorage: 200
         }).save();
         
         newUser.set("password", undefined);

@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema({
     },
     totalStorage: {
         type: Number,
+        default : 200
     },
     totalStorageUsed: {
         type: Number,
