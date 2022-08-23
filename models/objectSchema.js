@@ -11,11 +11,12 @@ const objectSchema = mongoose.Schema({
     },
     parent: {
         type: mongoose.Types.ObjectId,
-        ref: "users"
+        ref: "users",
+        required: true
     },
     size: {
         type: String,
-       
+        required: true   
     },
 
 },{ timestamps: true });

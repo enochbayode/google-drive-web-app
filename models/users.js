@@ -11,7 +11,7 @@ const userSchema = mongoose.Schema({
     },
     totalStorage: {
         type: Number,
-        default : 200
+        default : 200 * 1024 * 1024
     },
     totalStorageUsed: {
         type: Number,
@@ -22,7 +22,7 @@ const userSchema = mongoose.Schema({
        
     },
 
-});
+},{ timestamps: true });
 
 const User = mongoose.model("users", userSchema);
 
