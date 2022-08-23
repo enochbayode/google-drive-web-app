@@ -3,6 +3,6 @@ const { authrouter } = require('./routes/auth');
 
 module.exports = (app) => {
   app.use(mainrouter);
-  app.use('/auth', authrouter);
+  app.use('/user', authrouter);
 
 };

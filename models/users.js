@@ -11,16 +11,20 @@ const userSchema = mongoose.Schema({
     },
     totalStorage: {
         type: Number,
-        default : 200 * 1024 * 1024
+        default : 200 * 1024 * 1024,
     },
     totalStorageUsed: {
         type: Number,
-       
+        default: 0,
     },
     totalStorageAvailable: {
         type: Number,
-       
+        default: 200 * 1024 *1024,
     },
+    isActive: {
+        type: Boolean,
+        default: true,
+    }
 
 },{ timestamps: true });
 

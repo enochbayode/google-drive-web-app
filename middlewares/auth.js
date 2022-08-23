@@ -47,20 +47,22 @@ class Auth {
                 });
             }
 
-            // if (!user.isActive) {
-            //     const error = "ACCOUNT_DISABLED";
-            //     return res.status(403).json({
-            //         status: false,
-            //         message: "You've got some errors.",
-            //         errors: utils.getMessage(error),
-            //     });
-            // }
+            if (!user.isActive) {
+                const error = "ACCOUNT_DISABLED";
+                return res.status(403).json({
+                    status: false,
+                    message: "You've got some errors.",
+                    errors: utils.getMessage(error),
+                });
+            }
 
-            req.user = {
-                _id: user._id,
-                email: user.email,
-                password: user.password,
-            };
+            req.user = user
+            // {
+            //     _id: user._id,
+            //     email: user.email,
+            //     password: user.password,
+            // };
+
             next();
         } catch (error) {
             error = "INVALID_TOKEN_ERROR";
