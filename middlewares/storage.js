@@ -35,7 +35,8 @@ class Storage {
         }
       };
   
-      //media files should not exceed 10 MB
+      //media files should not exceed 10 MB as 1MB is equivalent to 1048576B
+      // i.e 1024 1024*
       this.fileSize = 10 * 1024 * 1024;
   
       this.upload = multer({
