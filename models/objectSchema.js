@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 const objectSchema = mongoose.Schema({
-    object_name: {
+    file_name: {
         type: String,
         required: true,
     },
-    object_uri: {
+    file_uri: {
         type: String,
         required: true,
     },
@@ -14,7 +14,7 @@ const objectSchema = mongoose.Schema({
         ref: "users",
         required: true
     },
-    object_size: {
+    file_size: {
         type: String,
         required: true   
     },

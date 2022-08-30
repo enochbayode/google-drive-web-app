@@ -2,19 +2,21 @@ const joi = require("joi");
 const { Utils } = require("./utils");
 const utils = new Utils();
 
-const objectValidation = joi.object({
-    object_name: joi.string().required(),
-    object_uri: joi.string().required(),
-    object_size: joi.string().required(),
+const fileObjectValidation = joi.object({
+    file_name: joi.string().required(),
+    file_uri: joi.string().required(),
+    file_size: joi.string().required(),
   });
 
-  const validateObject = async (req, res, next) => {
+  const validateFileObject = async (req, res, next) => {
     try {
-      const validated = objectValidation.validate(req.body);
-      
+      const validated = fileObjectValidation.validate(req.files);
+      // console.log(req.files);
       if (validated.error) {
         res.status(400);
+        // console.log(validated.error)
         return res.json({
+          
           error: utils.getMessage("DATA_VALIDATION_ERROR"),
         });
       }
@@ -28,5 +30,5 @@ const objectValidation = joi.object({
 
 
 module.exports = {
-    validateObject
+    validateFileObject
 };

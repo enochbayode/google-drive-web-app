@@ -33,6 +33,7 @@ const userValidation = async (req, res, next) => {
   const logInValidate = async (req, res, next) => {
     try {
       const validUser = loginValidation.validate(req.body);
+      
       if (validUser.error) {
         res.status(400);
         return res.json({

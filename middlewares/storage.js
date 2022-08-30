@@ -9,7 +9,12 @@ const { diskStorage } = require('multer');
 class Storage {
     constructor() {
       //defining the list of accepted media files
-      this.media = ['jpeg', 'png', 'jpg', 'gif', 'mp4', 'wav', 'mp3', 'm4a'];
+      this.media = [
+                    'jpeg', 'png', 'jpg',
+                     'gif', 'mp4', 'wav', 
+                     'mp3', 'm4a', 'pdf',
+                     'doc', 'docx'
+                    ];
   
       // setting up google firebase storage
       this.storage = new googleCloud.Storage({
