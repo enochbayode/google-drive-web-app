@@ -15,7 +15,7 @@ const objectSchema = mongoose.Schema({
         required: true
     },
     file_size: {
-        type: String,
+        type: Number,
         required: true   
     },
 

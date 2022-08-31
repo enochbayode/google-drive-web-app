@@ -34,6 +34,12 @@ class Storage {
           return;
         }
       };
+
+      // this.getFilesizeInBytes(req, filename) => {
+      //   var stats = fs.statSync(filename);
+      //   var fileSizeInBytes = stats.size;
+      //   return fileSizeInBytes;
+      // }
   
       //media files should not exceed 10 MB as 1MB is equivalent to 1048576B
       // i.e 1024 1024*

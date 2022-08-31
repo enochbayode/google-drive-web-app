@@ -12,19 +12,20 @@ const storage = new Storage();
 // }
 
 const uploadFile = (req, res) => {
-    const { _id } = req.user;
-    const {
-        file_name,
-        file_uri,
-        file_size, 
-    } = req.body;
 
-    const newFile = new Object({
-        user: _id,
-        file_name,
-        file_uri,
-        file_size,
-    });
+    // const { _id } = req.user;
+    // const {
+    //     file_name,
+    //     file_uri,
+    //     file_size, 
+    // } = req.files;
+
+    // const newFile = new Object({
+    //     user: _id,
+    //     file_name,
+    //     file_uri,
+    //     file_size,
+    // });
 
 
     // const savedFile = await newFile.save();
@@ -50,7 +51,7 @@ const uploadFile = (req, res) => {
             });
         }
 
-        
+        console.log(data)
         return res.status(200).json({
             success: true,
             message: "file successfully uploaded",
