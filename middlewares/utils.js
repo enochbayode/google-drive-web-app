@@ -8,6 +8,7 @@ class Utils {
     this.messages = {
       IMAGE_UPLOAD_ERROR: 'Please check your file(s) and try again',
       FILE_UPLOAD_ERROR: 'Please check your file(s) and try again',
+      FILE_EXISTENCE_ERROR: 'Please check your file(s) and try again',
       DATA_ERROR: 'Some fields are empty',
       UPDATE_DATA_ERROR: 'You need to send over the required data',
       UPDATE_AFTER_VERIFICATION_ERROR: 'Cannot update name after verification',
