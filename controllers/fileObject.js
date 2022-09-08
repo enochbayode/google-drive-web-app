@@ -11,20 +11,20 @@ const storage = new Storage();
     
 // }
 
-const uploadFile = (req, res) => {
+const uploadFile = async (req, res) => {
 
-    // const { _id } = req.user;
+    const { _id } = req.user;
     // const {
-    //     file_name,
-    //     file_uri,
-    //     file_size, 
+    //     fileName,
+    //     fileUri,
+    //     fileSize, 
     // } = req.files;
 
     // const newFile = new Object({
-    //     user: _id,
-    //     file_name,
-    //     file_uri,
-    //     file_size,
+    //     author: _id,
+    //     fileName,
+    //     fileUri,
+    //     fileSize,
     // });
 
 
@@ -42,20 +42,32 @@ const uploadFile = (req, res) => {
             });
         }
 
-        let data = [];
+        // const { _id } = req.user;
 
+        // let data = [];
+        // data.push({
+            
+            //     author: _id,
+            //     fileName: files[i].originalname,
+            //     fileUri: files[i].path,  
+               
+            // });
+
+        const newFile = new Object({});
         for (i = 0; i < files.length; i++) {
-            data.push({
+            
+            Object({
+                author: _id,
                 fileName: files[i].originalname,
-                path: files[i].path,      
-            });
+                fileUri: files[i].path,
+                fileSize: files[i].size 
+            }).save();
         }
-
-        console.log(data)
+        
         return res.status(200).json({
             success: true,
             message: "file successfully uploaded",
-            data,
+            newFile,
         });
     });
 };    
@@ -98,13 +110,17 @@ const deleteFile = async (req, res) => {
 
 const fetchAllFiles = async (req, res) => {
     const files = req.files;
-
+    const { _id } = req.user;
     try {
-        const fetchFiles = await files.find({})
-        if (!fetchFiles) {
+        const fetchFiles = await Object.findById({author: _id})
+            .sort({
+                datePosted: -1,
+            });
+
+        if (fetchFiles.length == 0) {
             return res.status(404).json({
                 status: false,
-                message: "Unable to fetch files",
+                message: "You have no file to display",
                 error: utils.getMessage("FILE_EXISTENCE_ERROR"),
             });
         }

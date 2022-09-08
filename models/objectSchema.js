@@ -1,22 +1,27 @@
 const mongoose = require("mongoose");
 
 const objectSchema = mongoose.Schema({
-    file_name: {
+    fileName: {
         type: String,
         required: true,
     },
-    file_uri: {
+    fileUri: {
         type: String,
         required: true,
     },
-    parent: {
+    author: {
         type: mongoose.Types.ObjectId,
         ref: "users",
         required: true
     },
-    file_size: {
+    fileSize: {
         type: Number,
         required: true   
+    },
+    datePosted: {
+        type: Date,
+        required: true,
+        default: Date.now,
     },
 
 },{ timestamps: true });

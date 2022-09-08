@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 // const { Mail } = require("../middlewares/mail");
 const { User } = require("../models/users");
-const { Utils } = require("./utils");
+const { Utils } = require("./utils"); 
 // const mail = new Mail();
 const utils = new Utils();
 

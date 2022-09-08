@@ -14,6 +14,18 @@ fileObjectrouter.post(
     fileRequest.uploadFile
 );
 
+fileObjectrouter.get(
+    '/getAllFiles', 
+    auth.tokenRequired,
+    fileRequest.fetchAllFiles
+);
+
+fileObjectrouter.delete(
+    '/deleteFile', 
+    auth.tokenRequired,
+    fileRequest.deleteFile
+);
+
 
 
 
