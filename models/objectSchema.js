@@ -16,7 +16,7 @@ const objectSchema = mongoose.Schema({
     },
     fileSize: {
         type: Number,
-        required: true   
+        // required: true   
     },
     datePosted: {
         type: Date,

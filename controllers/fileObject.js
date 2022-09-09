@@ -14,24 +14,12 @@ const storage = new Storage();
 const uploadFile = async (req, res) => {
 
     const { _id } = req.user;
-    // const {
-    //     fileName,
-    //     fileUri,
-    //     fileSize, 
-    // } = req.files;
+    const files = req.files;
 
-    // const newFile = new Object({
-    //     author: _id,
-    //     fileName,
-    //     fileUri,
-    //     fileSize,
-    // });
-
-
-    // const savedFile = await newFile.save();
-    const fileUpload = storage.upload.array('file', 5);
+    // const savedFile = await newFile.save()
+    const fileUpload = await storage.upload.array('file', 5);
     fileUpload(req, res, (err) => {
-        const files = req.files;
+        
 
         if (err) {
             // console.log(err);
@@ -41,33 +29,34 @@ const uploadFile = async (req, res) => {
                 error: utils.getMessage("FILE_UPLOAD_ERROR"),
             });
         }
+        let createdFiles = [];
 
-        // const { _id } = req.user;
-
-        // let data = [];
-        // data.push({
-            
-            //     author: _id,
-            //     fileName: files[i].originalname,
-            //     fileUri: files[i].path,  
-               
-            // });
-
-        const newFile = new Object({});
-        for (i = 0; i < files.length; i++) {
-            
-            Object({
+        // const newFile = new Object({
+        //     files
+        //     // author: _id,
+        //     // fileName: files.originalname,
+        //     // fileUri: files.path,
+        //     // fileSize: files[i].size 
+        // }).save();
+        
+        for (i = 0; i < files.length; i++) {            
+            const newFile = new Object({
                 author: _id,
                 fileName: files[i].originalname,
                 fileUri: files[i].path,
-                fileSize: files[i].size 
+                // fileSize: files[i].size 
             }).save();
+            console.log('file info', files[i]);
+
+            console.log(newFile);
+            createdFiles.push(newFile);
         }
-        
+                
+
         return res.status(200).json({
             success: true,
             message: "file successfully uploaded",
-            newFile,
+            createdFiles
         });
     });
 };    

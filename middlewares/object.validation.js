@@ -5,7 +5,7 @@ const utils = new Utils();
 const fileObjectValidation = joi.object({
     fileName: joi.string().required(),
     fileUri: joi.string().required(),
-    fileSize: joi.Number().required(),
+    fileSize: joi.number(),
   });
 
   const validateFileObject = async (req, res, next) => {
