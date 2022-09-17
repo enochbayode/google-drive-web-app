@@ -1,11 +1,12 @@
+const { optional } = require("joi");
 const mongoose = require("mongoose");
 
 const objectSchema = mongoose.Schema({
-    fileName: {
+    objectName: {
         type: String,
         required: true,
     },
-    fileUri: {
+    objectUri: {
         type: String,
         required: true,
     },
@@ -14,10 +15,23 @@ const objectSchema = mongoose.Schema({
         ref: "users",
         required: true
     },
-    fileSize: {
+    objectSize: {
         type: Number,
         // required: true   
     },
+    // category: {
+    //     type: String,
+    //     required: optional
+    // },
+    // ObjectType: {
+    //     type: [Folder, File],
+    //     required: true,
+    // },
+    // extension: {
+    //     type: String,
+    //     required: true,
+    // },
+    
     datePosted: {
         type: Date,
         required: true,

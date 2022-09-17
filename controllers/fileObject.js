@@ -6,60 +6,47 @@ const { Storage } = require("../middlewares/storage");
 // instantiating the middlewares
 const utils = new Utils();
 const storage = new Storage();
-
-// const uploadObject = async (req, res) => {
-    
-// }
+// const uploadFile = (req, res) => {
 
 const uploadFile = async (req, res) => {
+    const fileUpload = await storage.upload.array('file', 5)
+        async function fileupload (req, res) {
+            const files = req.files;
+            const { _id } = req.user;
 
-    const { _id } = req.user;
-    const files = req.files;
+            if (!fileUpload) {
+                return res.status(500).json({
+                    status: false,
+                    message: "Unable to upload Files",
+                    error: utils.getMessage("UNKNOWN_ERROR"),
+                });
+            }
 
-    // const savedFile = await newFile.save()
-    const fileUpload = await storage.upload.array('file', 5);
-    fileUpload(req, res, (err) => {
-        
+            let createdFiles = [];
+            for (i = 0; i < files.length; i++) {            
+                const newFile = await new Object({
+                    author: _id,
+                    objectName: files[i].originalname,
+                    objectUri: files[i].path,
+                    // fileSize: files[i].size 
+                    extension: files[i].split('.')[-1],
+                    // category: ,
+                }).save();
+                console.log('file info', files[i]);
 
-        if (err) {
-            // console.log(err);
-            return res.status(400).json({
-                status: false,
-                message: "Unable to upload file",
-                error: utils.getMessage("FILE_UPLOAD_ERROR"),
-            });
+                console.log(newFile);
+                createdFiles.push(newFile);
+            };
+
+            return res.status(200).json({
+                success: true,
+                message: "file successfully uploaded",
+                createdFiles
+            }); 
         }
-        let createdFiles = [];
-
-        // const newFile = new Object({
-        //     files
-        //     // author: _id,
-        //     // fileName: files.originalname,
-        //     // fileUri: files.path,
-        //     // fileSize: files[i].size 
-        // }).save();
-        
-        for (i = 0; i < files.length; i++) {            
-            const newFile = new Object({
-                author: _id,
-                fileName: files[i].originalname,
-                fileUri: files[i].path,
-                // fileSize: files[i].size 
-            }).save();
-            console.log('file info', files[i]);
-
-            console.log(newFile);
-            createdFiles.push(newFile);
-        }
-                
-
-        return res.status(200).json({
-            success: true,
-            message: "file successfully uploaded",
-            createdFiles
-        });
-    });
-};    
+    // );
+    
+}
 
 const deleteFile = async (req, res) => {
     const { id } = req.files;
