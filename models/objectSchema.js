@@ -19,19 +19,18 @@ const objectSchema = mongoose.Schema({
         type: Number,
         // required: true   
     },
-    // category: {
-    //     type: String,
-    //     required: optional
-    // },
+    category: {
+        type: String,
+        required: optional
+    },
     // ObjectType: {
-    //     type: [Folder, File],
-    //     required: true,
+    //     type: File,
+    //     required: optional,
     // },
-    // extension: {
-    //     type: String,
-    //     required: true,
-    // },
-    
+    extension: {
+        type: String,
+        required: true,
+    },
     datePosted: {
         type: Date,
         required: true,

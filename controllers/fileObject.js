@@ -9,8 +9,8 @@ const storage = new Storage();
 // const uploadFile = (req, res) => {
 
 const uploadFile = async (req, res) => {
-    const fileUpload = await storage.upload.array('file', 5)
-        async function fileupload (req, res) {
+    const fileUpload = storage.upload.array('file', 5)
+        fileUpload (req, res, (err) => {
             const files = req.files;
             const { _id } = req.user;
 
@@ -24,16 +24,16 @@ const uploadFile = async (req, res) => {
 
             let createdFiles = [];
             for (i = 0; i < files.length; i++) {            
-                const newFile = await new Object({
+                const newFile =  new Object({
                     author: _id,
                     objectName: files[i].originalname,
                     objectUri: files[i].path,
                     // fileSize: files[i].size 
-                    extension: files[i].split('.')[-1],
+                    extension: files[i].toString().split('.')[-1],
                     // category: ,
                 }).save();
                 console.log('file info', files[i]);
-
+                console.log('ext',extension)
                 console.log(newFile);
                 createdFiles.push(newFile);
             };
@@ -44,9 +44,9 @@ const uploadFile = async (req, res) => {
                 createdFiles
             }); 
         }
-    // );
+    );
     
-}
+};
 
 const deleteFile = async (req, res) => {
     const { id } = req.files;
