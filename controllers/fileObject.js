@@ -11,9 +11,13 @@ const constants = new Constant();
 const storage = new Storage();
 
 fileSize = async(path) => {  
-    const stats = await Fs.stat(path)
-  
-    return stat.size
+    
+    try{
+        const stats = await Fs.stat(path)
+        return stats.size
+    }catch(error){
+        console.log('An error occured')
+    }   
 }
 
 const uploadFile = async (req, res) => {
