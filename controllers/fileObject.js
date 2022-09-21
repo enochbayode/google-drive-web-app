@@ -3,6 +3,7 @@ const { Object } = require("../models/objectSchema");
 const { Utils } = require("../middlewares/utils");
 const { Constant } = require("../middlewares/constant");
 const { Storage } = require("../middlewares/storage");
+require("dotenv").config();
 const Fs = require('fs');
 
 // instantiating the middlewares
@@ -36,13 +37,15 @@ const uploadFile = async (req, res) => {
 
             let createdFiles = [];
             for (i = 0; i < files.length; i++) {   
-                // let ext = files[i].originalname.split(".").pop();   
+                
                 let extension = files[i].originalname.split(".").pop(); 
+                let filePath = process.env.Storage_URL + files[i].filename;
+
                 const newFile =  new Object({
                     author: _id,
                     objectName: files[i].originalname,
-                    objectUri: files[i].path,
-                    objectSize: fileSize(files[i].path),
+                    objectUri: filePath,
+                    objectSize: fileSize(filePath),
                     category: constants.getMessage(extension),
                 });
 
