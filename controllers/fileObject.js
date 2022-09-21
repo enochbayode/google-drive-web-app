@@ -1,12 +1,20 @@
 // importing the required modules
 const { Object } = require("../models/objectSchema");
 const { Utils } = require("../middlewares/utils");
+const { Constant } = require("../middlewares/constant");
 const { Storage } = require("../middlewares/storage");
+const Fs = require('fs');
 
 // instantiating the middlewares
 const utils = new Utils();
+const constants = new Constant();
 const storage = new Storage();
-// const uploadFile = (req, res) => {
+
+fileSize = async(path) => {  
+    const stats = await Fs.stat(path)
+  
+    return stat.size
+}
 
 const uploadFile = async (req, res) => {
     const fileUpload = storage.upload.array('file', 5)
@@ -14,7 +22,7 @@ const uploadFile = async (req, res) => {
             const files = req.files;
             const { _id } = req.user;
 
-            if (!fileUpload) {
+            if (err) {
                 return res.status(500).json({
                     status: false,
                     message: "Unable to upload Files",
@@ -23,18 +31,19 @@ const uploadFile = async (req, res) => {
             }
 
             let createdFiles = [];
-            for (i = 0; i < files.length; i++) {            
+            for (i = 0; i < files.length; i++) {   
+                // let ext = files[i].originalname.split(".").pop();   
+                let extension = files[i].originalname.split(".").pop(); 
                 const newFile =  new Object({
                     author: _id,
                     objectName: files[i].originalname,
                     objectUri: files[i].path,
-                    // fileSize: files[i].size 
-                    extension: files[i].toString().split('.')[-1],
-                    // category: ,
-                }).save();
-                console.log('file info', files[i]);
-                console.log('ext',extension)
-                console.log(newFile);
+                    objectSize: fileSize(files[i].path),
+                    category: constants.getMessage(extension),
+                });
+
+                // console.log('file info', files[i]);
+                
                 createdFiles.push(newFile);
             };
 

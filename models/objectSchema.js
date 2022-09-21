@@ -1,4 +1,4 @@
-const { optional } = require("joi");
+const { optional, required } = require("joi");
 const mongoose = require("mongoose");
 
 const objectSchema = mongoose.Schema({
@@ -17,11 +17,11 @@ const objectSchema = mongoose.Schema({
     },
     objectSize: {
         type: Number,
-        // required: true   
+        required: true   
     },
     category: {
         type: String,
-        required: optional
+        required: required,
     },
     // ObjectType: {
     //     type: File,

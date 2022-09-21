@@ -5,17 +5,17 @@ const fetch = require("node-fetch");
 class Constant {
   constructor() {
     // messages
-    this.constant = {
-      '.mp4': 'Video',
-      Video: '.mp4',
-      Music: '.mp3',
-      Picture: '.jpg',
-      Picture: '.jpeg',
-      Picture: '.png',
-      Video: '.mkv',
-      Document: '.doc',
-      Document: '.docx',
-      Document: '.pdf'
+    this.constants = {
+      mp4: "Video",
+      mkv: "Video",
+      mp3: "Music",
+      png: "Picture",
+      jpeg: "Picture",
+      jpg: "Picture",
+      doc: "Document",
+      docx: "Document",
+      pdf: "Document"
+
     };
   }
 
@@ -38,8 +38,8 @@ class Constant {
    * @param {*} message the error or success identifier
    * @returns {string} The corresponding error or success message
    */
-  getMessage(message) {
-    return this.messages[message] || message.toLowerCase();
+  getMessage(constant) {
+    return this.constants[constant] || constant.toLowerCase();
   }
 
  
