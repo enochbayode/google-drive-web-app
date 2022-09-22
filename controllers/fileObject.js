@@ -21,33 +21,35 @@ fileSize = async(path) => {
     }   
 }
 
-const uploadFile = async (req, res) => {
+const uploadFile =  (req, res) => {
     const fileUpload = storage.upload.array('file', 5)
-        fileUpload (req, res, (err) => {
+        fileUpload (req, res, async(err) => {
             const files = req.files;
             const { _id } = req.user;
 
             if (err) {
-                return res.status(500).json({
-                    status: false,
-                    message: "Unable to upload Files",
-                    error: utils.getMessage("UNKNOWN_ERROR"),
-                });
+                console.log(err)
+                // return res.status(500).json({
+                //     status: false,
+                //     message: "Unable to upload Files",
+                //     error: utils.getMessage("UNKNOWN_ERROR"),
+                // });
             }
 
             let createdFiles = [];
             for (i = 0; i < files.length; i++) {   
                 
-                let extension = files[i].originalname.split(".").pop(); 
-                let filePath = process.env.Storage_URL + files[i].filename;
+                const extension = files[i].originalname.split(".").pop(); 
+                const filePath = process.env.Storage_URL + files[i].filename;
+                const cate = toString(constants.getMessage(extension));
 
-                const newFile =  new Object({
+                const newFile = await new Object({
                     author: _id,
                     objectName: files[i].originalname,
                     objectUri: filePath,
-                    objectSize: fileSize(filePath),
-                    category: constants.getMessage(extension),
-                });
+                    // objectSize: fileSize(filePath),
+                    category: cate,
+                }).save(); 
 
                 // console.log('file info', files[i]);
                 

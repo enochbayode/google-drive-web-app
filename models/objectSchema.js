@@ -17,7 +17,7 @@ const objectSchema = mongoose.Schema({
     },
     objectSize: {
         type: Number,
-        required: true   
+        // required: true   
     },
     category: {
         type: String,
@@ -27,10 +27,10 @@ const objectSchema = mongoose.Schema({
     //     type: File,
     //     required: optional,
     // },
-    extension: {
-        type: String,
-        required: true,
-    },
+    // extension: {
+    //     type: String,
+    //     required: true,
+    // },
     datePosted: {
         type: Date,
         required: true,
