@@ -13,7 +13,7 @@ const fileObjectValidation = joi.object({
   const validateFileObject = async (req, res, next) => {
     try {
       const validated = fileObjectValidation.validate(req.files);
-      // console.log(req.files);
+      // console.log('req files',req.files);
       if (validated.error) {
         res.status(400);
         // console.log(validated.error)

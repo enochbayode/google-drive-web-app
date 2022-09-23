@@ -39,16 +39,16 @@ const uploadFile =  (req, res) => {
             let createdFiles = [];
             for (i = 0; i < files.length; i++) {   
                 
-                const extension = files[i].originalname.split(".").pop(); 
-                const filePath = process.env.Storage_URL + files[i].filename;
-                const cate = toString(constants.getMessage(extension));
+                let extension = files[i].originalname.split(".").pop(); 
+                let filePath = process.env.Storage_URL + files[i].filename;
+                let fileCategory = constants.getMessage(extension);
 
                 const newFile = await new Object({
                     author: _id,
                     objectName: files[i].originalname,
                     objectUri: filePath,
                     // objectSize: fileSize(filePath),
-                    category: cate,
+                    category: fileCategory,
                 }).save(); 
 
                 // console.log('file info', files[i]);
