@@ -3,7 +3,8 @@ const { Utils } = require("./utils");
 const utils = new Utils();
 
 const validation = joi.object({
-  name: joi.string().min(3).required(),
+  firstName: joi.string().min(3).required(),
+  lastName: joi.string().min(3).required(),
   email: joi.string().email().trim(true).required(),
   password: joi.string().min(5).required(),
 });

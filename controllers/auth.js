@@ -26,7 +26,8 @@ const signup = async (req, res) => {
         const hashedPassword = await securePassword(req.body.password);
         
         const newUser = await User({
-            name: req.body.name,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
             email: req.body.email.toLowerCase(),
             password: hashedPassword,
             

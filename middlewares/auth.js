@@ -57,11 +57,7 @@ class Auth {
             }
 
             req.user = user
-            // {
-            //     _id: user._id,
-            //     email: user.email,
-            //     password: user.password,
-            // };
+           
 
             next();
         } catch (error) {

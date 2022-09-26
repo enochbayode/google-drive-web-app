@@ -21,7 +21,7 @@ const objectSchema = mongoose.Schema({
     },
     category: {
         type: String,
-        required: required,
+        required: true,
     },
     // ObjectType: {
     //     type: File,

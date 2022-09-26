@@ -21,7 +21,7 @@ fileSize = async(path) => {
     }   
 }
 
-const uploadFile =  (req, res) => {
+const uploadFile = (req, res) => {
     const fileUpload = storage.upload.array('file', 5)
         fileUpload (req, res, async(err) => {
             const files = req.files;
@@ -106,7 +106,7 @@ const fetchAllFiles = async (req, res) => {
     const files = req.files;
     const { _id } = req.user;
     try {
-        const fetchFiles = await Object.findById({author: _id})
+        const fetchFiles = await files.findById({author: _id})
             .sort({
                 datePosted: -1,
             });
