@@ -65,3 +65,12 @@ fileUpload (req, res, (err) => {
 
     
 });
+
+for (let index = 0; index < array.length; index++) {
+    const element = array[index];
+    
+}
+
+array.forEach(element => {
+    
+});

@@ -2,6 +2,7 @@
 const { Object } = require("../models/objectSchema");
 const { Utils } = require("../middlewares/utils");
 const { Constant } = require("../middlewares/constant");
+const { User } = require("../models/users");
 const { Storage } = require("../middlewares/storage");
 require("dotenv").config();
 const Fs = require('fs');
@@ -14,8 +15,10 @@ const storage = new Storage();
 fileSize = async(path) => {  
     
     try{
-        const stats = await Fs.stat(path)
-        return stats.size
+        const stats = await Fs.statSync(path)
+        // Convert the file size to megabytes (optional)
+        const fileSizeInMegabytes = fileSizeInBytes / (1024*1024);
+        return fileSizeInMegabytes
     }catch(error){
         console.log('An error occured')
     }   
@@ -28,12 +31,12 @@ const uploadFile = (req, res) => {
             const { _id } = req.user;
 
             if (err) {
-                console.log(err)
-                // return res.status(500).json({
-                //     status: false,
-                //     message: "Unable to upload Files",
-                //     error: utils.getMessage("UNKNOWN_ERROR"),
-                // });
+                // console.log(err)
+                return res.status(500).json({
+                    status: false,
+                    message: "Unable to upload Files",
+                    error: utils.getMessage("UNKNOWN_ERROR"),
+                });
             }
 
             let createdFiles = [];
@@ -67,20 +70,20 @@ const uploadFile = (req, res) => {
 };
 
 const deleteFile = async (req, res) => {
-    const { id } = req.files;
-    const files = req.files;
+    const { id } = req.user;
+   
 
     try {
-        const fileExists = await files.findById({ _id: id });
+        const fileExists = await Object.findById({ _id: id });
         if (!fileExists) {
             return res.status(404).json({
                 status: false,
                 message: "file does not exist",
                 error: utils.getMessage("FILE_EXISTENCE_ERROR"),
             });
-        }
+         }
 
-        const deleteFile = await files.findOneAndDelete({ _id: id });
+        const deleteFile = await Object.findOneAndDelete({ _id: id });
         if (deleteFile) {
             return res.status(200).json({
                 status: true,
@@ -104,9 +107,9 @@ const deleteFile = async (req, res) => {
 
 const fetchAllFiles = async (req, res) => {
     const files = req.files;
-    const { _id } = req.user;
+    const { id } = req.user;
     try {
-        const fetchFiles = await files.findById({author: _id})
+        const fetchFiles = await Object.findById({ _id: id })
             .sort({
                 datePosted: -1,
             });
@@ -126,11 +129,11 @@ const fetchAllFiles = async (req, res) => {
         });
     } catch (err) {
         console.log(err);
-        return res.status(500).json({
-            status: false,
-            message: "Unable to fetch Files",
-            error: utils.getMessage("UNKNOWN_ERROR"),
-        });
+        // return res.status(500).json({
+        //     status: false,
+        //     message: "Unable to fetch Files",
+        //     error: utils.getMessage("UNKNOWN_ERROR"),
+        // });
     }
 };
 
