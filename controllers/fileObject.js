@@ -69,13 +69,13 @@ const uploadFile = (req, res) => {
     
 };
 
-const deleteFile = async (req, res) => {
+const deleteObject = async (req, res) => {
     const { id } = req.user;
    
 
     try {
-        const fileExists = await Object.findById({ _id: id });
-        if (!fileExists) {
+        const objectExists = await Object.findById({ _id: id });
+        if (!objectExists) {
             return res.status(404).json({
                 status: false,
                 message: "file does not exist",
@@ -83,8 +83,8 @@ const deleteFile = async (req, res) => {
             });
          }
 
-        const deleteFile = await Object.findOneAndDelete({ _id: id });
-        if (deleteFile) {
+        const deleteObject = await Object.findOneAndDelete({ _id: id });
+        if (deleteObject) {
             return res.status(200).json({
                 status: true,
                 message: "File successfully deleted",
@@ -133,18 +133,18 @@ const fetchAllObjects = async (req, res) => {
             data: fetchObjects,
         });
     } catch (err) {
-        console.log(err);
-        // return res.status(500).json({
-        //     status: false,
-        //     message: "Unable to fetch Files",
-        //     error: utils.getMessage("UNKNOWN_ERROR"),
-        // });
+        // console.log(err);
+        return res.status(500).json({
+            status: false,
+            message: "Unable to fetch Files",
+            error: utils.getMessage("UNKNOWN_ERROR"),
+        });
     }
 };
 
 
 module.exports = {
     uploadFile,
-    deleteFile,
+    deleteObject,
     fetchAllObjects
 };

@@ -23,7 +23,7 @@ fileObjectrouter.get(
 fileObjectrouter.delete(
     '/deleteFile', 
     auth.tokenRequired,
-    fileRequest.deleteFile
+    fileRequest.deleteObject
 );
 
 
