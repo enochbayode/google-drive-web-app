@@ -106,10 +106,15 @@ const deleteFile = async (req, res) => {
 };
 
 const fetchAllObjects = async (req, res) => {
-    const files = req.files;
-    const { id } = req.user;
+    const { email } = req.query;
+    let filter = {};
+
+    if (email) {
+        filter.email = email;
+    }
+
     try {
-        const fetchObjects = await Object.findById({ _id: id })
+        const fetchObjects = await Object.find(filter)
             .sort({
                 datePosted: -1,
             });
@@ -125,7 +130,7 @@ const fetchAllObjects = async (req, res) => {
         return res.status(200).json({
             status: true,
             message: "files fetched successfully",
-            data: fetchFiles,
+            data: fetchObjects,
         });
     } catch (err) {
         console.log(err);
