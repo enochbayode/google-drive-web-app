@@ -105,16 +105,16 @@ const deleteFile = async (req, res) => {
     }
 };
 
-const fetchAllFiles = async (req, res) => {
+const fetchAllObjects = async (req, res) => {
     const files = req.files;
     const { id } = req.user;
     try {
-        const fetchFiles = await Object.findById({ _id: id })
+        const fetchObjects = await Object.findById({ _id: id })
             .sort({
                 datePosted: -1,
             });
 
-        if (fetchFiles.length == 0) {
+        if (fetchObjects.length == 0) {
             return res.status(404).json({
                 status: false,
                 message: "You have no file to display",
@@ -141,5 +141,5 @@ const fetchAllFiles = async (req, res) => {
 module.exports = {
     uploadFile,
     deleteFile,
-    fetchAllFiles
+    fetchAllObjects
 };

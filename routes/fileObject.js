@@ -17,7 +17,7 @@ fileObjectrouter.post(
 fileObjectrouter.get(
     '/getAllFiles', 
     auth.tokenRequired,
-    fileRequest.fetchAllFiles
+    fileRequest.fetchAllObjects
 );
 
 fileObjectrouter.delete(
