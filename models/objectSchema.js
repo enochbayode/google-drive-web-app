@@ -17,7 +17,7 @@ const objectSchema = mongoose.Schema({
     },
     objectSize: {
         type: String,
-        // required: true   
+        required: true   
     },
     category: {
         type: String,

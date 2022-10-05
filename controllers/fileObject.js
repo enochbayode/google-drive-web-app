@@ -5,23 +5,30 @@ const { Constant } = require("../middlewares/constant");
 const { User } = require("../models/users");
 const { Storage } = require("../middlewares/storage");
 require("dotenv").config();
-const Fs = require('fs');
+const fs = require('fs');
 
 // instantiating the middlewares
 const utils = new Utils();
 const constants = new Constant();
 const storage = new Storage();
 
-fileSize = async(path) => {  
+fileSizeInBytes = async(path) => {  
     
-    try{
-        const stats = await Fs.statSync(path)
-        // Convert the file size to megabytes (optional)
-        const fileSizeInMegabytes = fileSizeInBytes / (1024*1024);
-        return fileSizeInMegabytes
-    }catch(error){
-        console.log('An error occured')
-    }   
+    // try{
+    //     const stats = await Fs.statSync(path)
+    //     // Convert the file size to megabytes (optional)
+    //     const fileSizeInMegabytes = fileSizeInBytes / (1024*1024);
+    //     return fileSizeInMegabytes
+    // }catch(error){
+    //     console.log('An error occured')
+    // }   
+    try {
+        const stats = fs.statSync(path)
+        return stats.size;
+      } catch (err) {
+        console.log(err)
+      }
+
 }
 
 const uploadFile = (req, res) => {
@@ -45,12 +52,13 @@ const uploadFile = (req, res) => {
                 let extension = files[i].originalname.split(".").pop(); 
                 let filePath = process.env.Storage_URL + files[i].filename;
                 let fileCategory = constants.getMessage(extension);
+                let fileSize = fileSizeInBytes(files[i].originalname);
 
                 const newFile = await new Object({
                     author: _id,
                     objectName: files[i].originalname,
                     objectUri: filePath,
-                    // objectSize: fileSize(filePath),
+                    objectSize: fileSize,
                     category: fileCategory,
                 }).save(); 
 
