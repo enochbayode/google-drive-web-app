@@ -5,7 +5,7 @@ const utils = new Utils();
 const fileObjectValidation = joi.object({
     objectName: joi.string().required(),
     objectUri: joi.string().required(),
-    // objectSize: joi.string().required(),
+    objectSize: joi.string().required(),
     // extension: joi.string().required(),
     category: joi.string().required(),
   });

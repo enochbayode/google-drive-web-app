@@ -9,12 +9,34 @@ const { diskStorage } = require('multer');
 class Storage {
     constructor() {
       //defining the list of accepted media files
-      this.media = [
-                    'jpeg', 'png', 'jpg',
-                     'gif', 'mp4', 'wav', 
-                     'mp3', 'm4a', 'pdf',
-                     'doc', 'docx'
-                    ];
+      this.media = 
+      [
+        // images
+        'jpeg', 'png', 'jpg',
+        'gif', 'bmp', 'psd',
+        'thm', 
+        
+        //  music
+        'mpa',  'wav', 
+        'mp3', 'm4a', 'm4v',
+        'iff', 'mid', 'aif',
+        'm3u', 'ra', 'wma',
+          
+        //  video
+        'mov', 'mpg', 'rm',
+        'avi', 'asx', 'srt',
+        'swf', 'vob', 'wmv',
+        'mp4', 'm4v', 'asf',
+        'vob', 
+
+        // docs
+        'doc', 'docx', 'pdf',
+        'xlr', 'xlsx', 'db',
+        'dbf', 'msg', 'wps',
+        'wpd', 'txt', 'pages',
+        'odt', 'log', 'tex',
+        'rtf', 
+      ];
   
       // setting up google firebase storage
       this.storage = new googleCloud.Storage({
@@ -34,12 +56,6 @@ class Storage {
           return;
         }
       };
-
-      // this.getFilesizeInBytes(req, filename) => {
-      //   var stats = fs.statSync(filename);
-      //   var fileSizeInBytes = stats.size;
-      //   return fileSizeInBytes;
-      // }
   
       //media files should not exceed 10 MB as 1MB is equivalent to 1048576B
       // i.e 1024 1024*
@@ -60,6 +76,8 @@ class Storage {
         limits: { fileSize: this.fileSize }, //image should not exceed 10 MB
         fileFilter: this.fileFilter,
       });
+
+      // console.log(this.fileSize)
     }
   
     /**

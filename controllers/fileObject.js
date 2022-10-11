@@ -11,8 +11,10 @@ const utils = new Utils();
 const constants = new Constant();
 const storage = new Storage();
 
-const filesize = require("filesize");
+const { filesize } = require("filesize");
 
+// import {filesize} from "filesize";
+// console.log(filesize(265318, {base: 2, standard: "jedec"})); 
 
 const uploadFile = (req, res) => {
     const fileUpload = storage.upload.array('file', 5)
@@ -43,7 +45,7 @@ const uploadFile = (req, res) => {
                     author: _id,
                     objectName: files[i].originalname,
                     objectUri: filePath,
-                    // objectSize: fileSize,
+                    objectSize: fileSize,
                     category: fileCategory,
                 }).save(); 
 
