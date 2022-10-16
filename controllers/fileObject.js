@@ -12,9 +12,10 @@ const constants = new Constant();
 const storage = new Storage();
 
 const { filesize } = require("filesize");
+// const totalStorage = 200;
+// const totalStorageUsed += 
+// const totalStorageAvailable
 
-// import {filesize} from "filesize";
-// console.log(filesize(265318, {base: 2, standard: "jedec"})); 
 
 const uploadFile = (req, res) => {
     const fileUpload = storage.upload.array('file', 5)
@@ -38,8 +39,7 @@ const uploadFile = (req, res) => {
                 let filePath = process.env.Storage_URL + files[i].filename;
                 let fileCategory = constants.getMessage(extension);
                 let fileSize = filesize(265318, {base: 2, standard: files[i].originalname});
-
-                console.log(fileSize)
+                console.log('File size',fileSize)
 
                 const newFile = await new Object({
                     author: _id,

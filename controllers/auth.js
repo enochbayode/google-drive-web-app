@@ -95,6 +95,50 @@ const login = async (req, res) => {
     }
 };
 
+const updateUserProfile = async (req, res) =>{
+    try{
+        const user = await User.findById(req.user._id);
+        if (!user) {
+            return res.status(404).json({
+                status: false,
+                message: "unable to find user",
+                error: utils.getMessage("EXISTENCE_ERROR"),
+            });
+        }
+        const updateProfile = {
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+        };
+
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: req.user._id },
+            updateProfile,
+            { new: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(500).json({
+                status: false,
+                message: "unable to update user",
+                error: utils.getMessage("UNKNOWN_ERROR"),
+            });
+        }
+
+        return res.status(200).json({
+            status: true,
+            message: "user updated successfully",
+            data: updatedUser,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            status: false,
+            message: "oops!!",
+            error: utils.getMessage("UNKNOWN_ERROR"),
+        });
+    }
+};
+
 const logoutUser = async (req, res) => {
     req.user = null;
     res.status(200).json({
@@ -110,6 +154,7 @@ const logoutUser = async (req, res) => {
 
 // exporting the controllers
 module.exports = {
+    updateUserProfile,
     logoutUser,
     signup,
     login,
