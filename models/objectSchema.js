@@ -22,14 +22,6 @@ const objectSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    // ObjectType: {
-    //     type: File,
-    //     required: optional,
-    // },
-    // extension: {
-    //     type: String,
-    //     required: true,
-    // },
     datePosted: {
         type: Date,
         required: true,
