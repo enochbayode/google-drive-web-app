@@ -17,6 +17,12 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+
+    isActive: {
+        type: Boolean,
+        default: true,
+    },
+    
     totalStorage: {
         type: Number,
         default : 200 * 1024 * 1024,
@@ -30,10 +36,7 @@ const userSchema = mongoose.Schema({
         default: 200 * 1024 *1024, 
         // default storage space 200mb 
     },
-    isActive: {
-        type: Boolean,
-        default: true,
-    }
+    
 
 },{ timestamps: true });
 
