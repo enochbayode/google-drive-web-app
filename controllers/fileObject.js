@@ -38,7 +38,7 @@ const uploadFile = (req, res) => {
                 let extension = files[i].originalname.split(".").pop(); 
                 let filePath = process.env.Storage_URL + files[i].filename;
                 let fileCategory = constants.getMessage(extension);
-                let fileSize = filesize(265318, {base: 2, standard: files[i].originalname});
+                // let fileSize = filesize(265318, {base: 2, standard: files[i].originalname});
                 console.log('File size',fileSize)
 
                 const newFile = await new Object({
@@ -67,7 +67,6 @@ const uploadFile = (req, res) => {
 const deleteObject = async (req, res) => {
     const { id } = req.user;
    
-
     try {
         const objectExists = await Object.findById({ _id: id });
         if (!objectExists) {
